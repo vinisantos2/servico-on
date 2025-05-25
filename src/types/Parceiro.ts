@@ -5,7 +5,6 @@ export interface Parceiro {
     imagem?: string
     nome: string;
     descricao: string;
-    avaliacao: number;
     createdAt?: Timestamp;
     contato: string
     endereco: string
@@ -13,4 +12,5 @@ export interface Parceiro {
         latitude: number;
         longitude: number;
     }
+
 }

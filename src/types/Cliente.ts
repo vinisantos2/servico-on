@@ -1,5 +1,5 @@
 import { Timestamp } from "firebase/firestore";
-import { Comentario } from "./Comentario";
+import { Avaliacao } from "./Avaliacao";
 
 export interface Cliente {
   id: string;
@@ -7,5 +7,5 @@ export interface Cliente {
   descricaoParceiro?: string;
   createdAt?: Timestamp;
   avaliacao?: number;
-  comentarios?: Array<Comentario>
+  comentarios?: Array<Avaliacao>
 }

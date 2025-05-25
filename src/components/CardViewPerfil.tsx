@@ -1,11 +1,20 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 import Avaliacao from "./Avaliacao";
+import { Parceiro } from "../types/Parceiro";
+import ModalAvaliacao from "./ModalAvaliacao";
+import { useState } from "react";
 
-export default function CardViewPerfil({ parceiro, clienteLogado }) {
+type Props = {
+  parceiro: Parceiro
+  clienteLogado: boolean
+}
+
+export default function CardViewPerfil({ parceiro, clienteLogado }: Props) {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       <Text style={styles.nome}>{parceiro.nome}</Text>
-      <Avaliacao nota={parceiro.avaliacao} />
+      <Avaliacao nota={parceiro.nome} />
       <Text style={styles.descricao}>{parceiro.descricao}</Text>
 
       <View style={styles.infoBox}>
@@ -29,12 +38,17 @@ export default function CardViewPerfil({ parceiro, clienteLogado }) {
         <View style={{ marginTop: 16 }}>
           <Button
             title="Avaliar este parceiro"
-            onPress={() => {
-              // abrir modal ou navegação para avaliação
-            }}
+            onPress={() => setModalVisible(true)}
           />
         </View>
       )}
+
+      <ModalAvaliacao
+        visivel={modalVisible}
+        onFechar={() => setModalVisible(false)}
+        idCliente={parceiro.id}
+      />
+
     </View>
   );
 }
