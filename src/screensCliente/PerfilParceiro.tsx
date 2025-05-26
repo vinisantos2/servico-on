@@ -16,8 +16,20 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../firebase/FirebaseConfig";
 import { Servico } from "../types/Servico";
 import CardViewPerfil from "../components/CardViewPerfil";
+import { RouteProp } from '@react-navigation/native';
 
-export default function ParceiroPerfil({ route }) {
+type RouteParams = {
+  idParceiro: string;
+};
+
+type Props = {
+  route: RouteProp<{ ParceiroPerfil: RouteParams }, 'ParceiroPerfil'>;
+};
+
+
+
+export default function ParceiroPerfil({ route }: Props) {
+
   const { idParceiro } = route.params ?? {};
   const [parceiro, setParceiro] = useState<Parceiro | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,7 +64,7 @@ export default function ParceiroPerfil({ route }) {
   useEffect(() => {
     async function fetchParceiro() {
       try {
-        const p = await buscarDocumentoPorId(TABELA_PARCEIROS, idParceiro);
+        const p = await buscarDocumentoPorId<Parceiro>(TABELA_PARCEIROS, idParceiro);
         setParceiro(p);
       } catch (error) {
         console.error("Erro ao buscar parceiro:", error);

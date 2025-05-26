@@ -3,6 +3,7 @@ import Avaliacao from "./Avaliacao";
 import { Parceiro } from "../types/Parceiro";
 import ModalAvaliacao from "./ModalAvaliacao";
 import { useState } from "react";
+import { auth } from "../firebase/FirebaseConfig";
 
 type Props = {
   parceiro: Parceiro
@@ -14,7 +15,7 @@ export default function CardViewPerfil({ parceiro, clienteLogado }: Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.nome}>{parceiro.nome}</Text>
-      <Avaliacao nota={parceiro.nome} />
+      <Avaliacao idParceiro={parceiro.id} />
       <Text style={styles.descricao}>{parceiro.descricao}</Text>
 
       <View style={styles.infoBox}>
@@ -46,7 +47,7 @@ export default function CardViewPerfil({ parceiro, clienteLogado }: Props) {
       <ModalAvaliacao
         visivel={modalVisible}
         onFechar={() => setModalVisible(false)}
-        idCliente={parceiro.id}
+        idParceiro={parceiro.id}
       />
 
     </View>

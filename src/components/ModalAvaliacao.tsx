@@ -15,17 +15,19 @@ import { collection, addDoc, Timestamp, serverTimestamp } from "firebase/firesto
 type Props = {
   visivel: boolean;
   onFechar: () => void;
-  idCliente: string;
+
+  idParceiro: string
 };
 
-export default function ModalAvaliacao({ visivel, onFechar, idCliente }: Props) {
+export default function ModalAvaliacao({ visivel, onFechar, idParceiro }: Props) {
   const [nota, setNota] = useState(0);
   const [comentario, setComentario] = useState("");
 
   const handleEnviar = async () => {
     if (nota < 1) return alert("Escolha uma nota antes de enviar.");
     const avaliacao = {
-      idCliente: idCliente,
+      idCliente: auth.currentUser?.uid,
+      idParceiro: idParceiro,
       nomeCliente: auth.currentUser?.email,
       comentario: comentario,
       data: serverTimestamp(),

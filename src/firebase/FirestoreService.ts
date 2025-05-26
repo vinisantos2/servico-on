@@ -27,11 +27,11 @@ export const listarDocumentos = async (colecao: string) => {
 };
 
 // 🔍 Ler um documento por ID
-export const buscarDocumentoPorId = async (colecao: string, id: string) => {
+export const buscarDocumentoPorId = async <T>(colecao: string, id: string): Promise<T> => {
   const docRef = doc(db, colecao, id);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
-    return { id: docSnap.id, ...docSnap.data() };
+    return docSnap.data() as T;
   } else {
     throw new Error('Documento não encontrado');
   }
